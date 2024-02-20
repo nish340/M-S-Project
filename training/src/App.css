@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header_main {
+  background-color:darkgray !important;
+}
+.main-form {
+  width: 450px;
+}
+.main-div {
+  font-family: arial;
+  background-image: url(./Images//mooverbg.svg);
+  background-repeat: no-repeat;
+  background-attachment:fixed ; 
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+}
+/* @media only screen and (min-width: 120px) and (max-width: 500px) {
+  .main-div {
+    background-image: url(./Images//mooverbg.svg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    object-fit: contain;
+    background-size: 100% 100%;
+    width: 465px;
+  }
+} */
+
+.paragraph {
+  font-size: 14px;
+  font-weight: 300;
+  color: #98a6ad;
+}
+.form-control.custom-placeholder {
+  font-size: 13px;
+  opacity: 0.6;
+}
+.button_main {
+  background-color: rgb(106, 105, 105) !important;
+  border: none !important;
+}
+.Sign_link{
+  text-decoration: none;
+  color: #98a6ad;
+  font-size: 12px;
+}
+.forget{
+  text-decoration: none;
+  color: #98a6ad;
+}
+.eye-btn{
+  left: 62%;
+  top: 65.5%;
+  position: fixed !important;
+}
