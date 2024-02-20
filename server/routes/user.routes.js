@@ -2,7 +2,7 @@ const userController = require("../controller/user.controller")
 
 module.exports = function Route(app) {
     app.post("/users/signUp", userController.signUp)
-    app.post("//users/login", userController.logIn)
+    app.post("/users/login", userController.logIn)
     // app.put("/api/users/edit", userController.update)
     // app.delete("/api/users/deleteById", userController.deleteById)
     // app.get("/api/users/findById", userController.findById)

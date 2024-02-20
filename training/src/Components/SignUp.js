@@ -67,7 +67,7 @@ const inputChange = (e) => {
                 <p className="fw-bolder fs-5 mb-0"> Sign Up </p>
                 <p className="paragraph mt-1">
                   Enter your Username and Password to <br />
-                  access Vendor panel. Username
+                  Access Trainer Panel.
                 </p>
               </div>
               <div>
@@ -180,7 +180,7 @@ const inputChange = (e) => {
                 Already have an account?
                 <span>
                   <Link to="/" className="Sign_link ms-1">
-                    SignIn
+                    Log In
                   </Link>
                 </span>
               </p>

@@ -35,7 +35,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       
-      const response = await axios.post("http://localhost:5001/users/signUp", data, { withCredentials: true });
+      const response = await axios.post("http://localhost:5001/users/login", data, { withCredentials: true });
       
       if (response.status === 200) {
       
@@ -70,10 +70,10 @@ const Login = () => {
                 <h1 className=" h-25 py-4 fs-5 ">Endorphin</h1>
               </div>
               <div className="text-center mt-5">
-                <p className="fw-bolder fs-5 mb-0"> Sign In </p>
+                <p className="fw-bolder fs-5 mb-0"> Log In </p>
                 <p className="paragraph mt-1">
                   Enter your Username and Password to <br />
-                  access Vendor panel. Username
+                  Access Trainer Panel.
                 </p>
               </div>
               <div>
@@ -110,7 +110,7 @@ const Login = () => {
                     <div className="d-flex justify-content-between">
                       <Form.Label>Password</Form.Label>
                       <Link to="/forget" className="forget">
-                        Forgot your Password?
+                        Forgot your Password ?
                       </Link>
                     </div>
                     <Controller
@@ -161,12 +161,12 @@ const Login = () => {
             </Form>
             <div className="text-center mt-4">
               <p className="paragraph">
-                Don't have an account?
-                {/* <span>
+                Don't have an account ?
+                <span>
                   <Link to="/signUp" className="Sign_link ms-1">
-                    SignUp
+                    Sign Up
                   </Link>
-                </span> */}
+                </span>
               </p>
               <DownPage />
             </div>
