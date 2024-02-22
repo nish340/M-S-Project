@@ -68,7 +68,7 @@ const createCategory = async (req, res) => {
 const getAllCategory = async (req, res) => {
   try {
     const pageSize = 20;
-  let result=  await Category.find()
+    let result = await Category.find()
     return res.status(200).json({
       status: "200",
       message: "Get All Category Successfully",
