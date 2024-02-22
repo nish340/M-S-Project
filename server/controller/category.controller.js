@@ -82,6 +82,7 @@ const getAllCategory = async (req, res) => {
 
 
 
+
 // Update a category
 const updateCategory = async (req, res) => {
   try {
@@ -98,10 +99,10 @@ const updateCategory = async (req, res) => {
       // helperStatus,
       sequence,
     } = req.body;
-    // console.log(id, "id id here");
+    console.log(id, "id is here===");
     const categoryExists = await Category.findOne({ _id: id }).select("id");
-    if (!categoryExists) {
-      return res.status(404).json({ status: "404", message: "Category not found" });
+    if (!categoryExists){
+      return res.status(404).json({ status:"404", message:"Category not found" });
     } else {
       await Category.findByIdAndUpdate(
         { _id: id },
@@ -115,16 +116,16 @@ const updateCategory = async (req, res) => {
           // loadingTime,
           // dimensions,
           // helperStatus,
-          sequence
+          // sequence
         }
       );
     }
     return res.status(200).json({ status: "200", message: "Category updated successfully" });
-
   } catch (error) {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
+
 
 
 
