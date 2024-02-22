@@ -28,14 +28,14 @@ const SignUp = () => {
   const [inputData, setInputData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: ""  
   });
 
   const navigate = useNavigate();
 
   const submitForm = async (data) => {
     try{
-    const response = await axios.post("http://localhost:5001/users/signUp", data, { withCredentials: true });
+    const response = await axios.post("http://localhost:5001/api/users/signUp", data, { withCredentials: true });
     // console.log(response.data);
     if (response.status === 200) {
       navigate ('/')
@@ -61,13 +61,13 @@ const inputChange = (e) => {
               className="bg-white rounded"
             >
               <div className="header_main d-flex justify-content-center text-white rounded-top p-3">
-              <h1 className=" h-25 py-4 fs-5 ">Endorphin</h1> 
+              <h1 className=" h-25 py-4 fw-bold ">Endorphin</h1> 
               </div>
               <div className="text-center mt-5">
                 <p className="fw-bolder fs-5 mb-0"> Sign Up </p>
                 <p className="paragraph mt-1">
                   Enter your Username and Password to <br />
-                  Access Trainer Panel.
+                  Access Endorphin Panel.
                 </p>
               </div>
               <div>
