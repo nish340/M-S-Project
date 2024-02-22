@@ -8,13 +8,6 @@ module.exports = function (app) {
     });
 
     require("./user.routes")(app)
-    // require("./warehouse.route")(app)
-    // require("./commodity.routes")(app)
-    // require("./unit.routes")(app)
-    // require("./vendor.route")(app)    
-    // require("./inbound.routes")(app)
-    // require("./outbound.routes")(app)
-    // require("./new_Product.routes")(app)
-    // require("./dashboard.route")(app)
-    // require("./account.routes")(app)
+    require("./category.routes")(app)
+    
 }

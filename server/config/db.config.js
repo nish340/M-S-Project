@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const { Sequelize } = require('sequelize');
+
 // require('dotenv').config();
 const connectionParams = {
     useNewUrlParser: true,

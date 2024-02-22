@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 // const crypto = require('crypto');
 
 
-// signUp
+// signUpAPI
 const saltRounds = 10; 
 const signUp = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ const signUp = async (req, res) => {
 
 
 
-// loginform
+// loginformAPI
 const logIn = async (req, res) => {
   try {
     const { name, password } = req.body;
@@ -59,7 +59,7 @@ const logIn = async (req, res) => {
 
 
 
-// forgotPassword
+// forgotPasswordAPI
 // const forgotPassword = async (req, res) => {
 //   try {
 //     const { name } = req.body;
@@ -79,7 +79,6 @@ const logIn = async (req, res) => {
 //           pass: 'your-password'
 //       }
 //     });
-
 //     const mailOptions = {
 //       from: 'mailto:your-name@gmail.com',
 //       to: user.name,
