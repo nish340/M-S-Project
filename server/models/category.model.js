@@ -13,40 +13,11 @@ const categorySchema = new mongoose.Schema({
   img: {
     type: String,
     required: true
-  },
-
-  // basePrice: {  
+  },  
+  // sequence: {
   //   type: Number,
   //   default: null
-  // },
-  // perKmPrice: {
-  //   type: Number,
-  //   default: null
-  // },
-  // capacity: {
-  //   type: Number,
-  //   default: null
-  // },
-  // loadingTime: {
-  //   type: Number,
-  //   default: null
-  // },
-  // dimensions: {
-  //   type: String,
-  //   default: null
-  // },
-  // status: {
-  //   type: Boolean,
-  //   default: true
-  // },
-  // helperStatus: {
-  //   type: Boolean,
-  //   default: false
-  // },
-  sequence: {
-    type: Number,
-    default: null
-  }
+  // }
 }, { timestamps: true });
 
 const Category = mongoose.model('Category', categorySchema);

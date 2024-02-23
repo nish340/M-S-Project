@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const { INTEGER } = require("sequelize");
 const { Schema } = mongoose;
 
 const userModel = new Schema(
@@ -12,16 +13,20 @@ const userModel = new Schema(
             type: String,
             required: true
         },
-        phone: String,
-        // role: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "roles"
-        // },
+        phone: 
+        { type: String,
+        required: true
+        },
+        role: {
+            type: String,
+            enum: ['admin','user'], 
+            default: 'user' 
+                  }
         // token: {
         //     type: String,
         //     default: ''
         // },
-        designation: String
+        // designation: String
     },
     { versionKey: false, timestamps: true }
 );

@@ -8,26 +8,29 @@ const jwt = require('jsonwebtoken');
 
 
 // signUpAPI
-const saltRounds = 10; 
+const saltRounds = 10;
+
 const signUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    if (!(name && email && password)) {
+    const { name, email, phone, password, role } = req.body;
+    if (!(name && email && phone && password && role)) {
       return res.status(400).json({ message: `All fields are required`, status: 400 });
     }
-    const userExist = await User.findOne({ email,name });
+    const userExist = await User.findOne({ email });
     if (userExist) {
       return res.status(400).json({ message: "Email already exists", status: 400 });
     }
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    await new User({ name, email, password: hashedPassword }).save();
+    await new User({ name, email, phone, password: hashedPassword, role }).save();
 
     return res.status(200).json({ message: "User registered successfully!", status: 200 });
   } catch (error) {
     return res.status(500).json({ message: error.message, status: 500 });
   }
 };
+module.exports = signUp;
+
 
 
 
@@ -50,11 +53,12 @@ const logIn = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, "your_secret_key", {
       expiresIn: "1h",
     });
-    return res.status(200).json({ message: "Login successfull", user, token, status: 200 });
+    return res.status(200).json({ message: "Login successfull", user: {_id: user._id, name: user.name, phone:user.phone, role: user.role }, token, status: 200 });
   } catch (error) {
     return res.status(500).json({ message: error.message, status: 500 });
   }
 };
+
 
 
 
