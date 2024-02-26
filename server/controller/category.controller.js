@@ -1,19 +1,19 @@
 const Category = require('../models/category.model');
 
-
-
 // Create a new category
 const createCategory = async (req, res) => {
+  console.log("object===================================")
   try {
     const {
-      name, description, img,
+      name, description
     } = req.body;
+    console.log(req.body,"createCategory")
     const categoryExists = await Category.findOne({ name: name });
     if (categoryExists) {
       return res.status(400).json({ status: "400", message: "Category Already Exists" });
     }
     const resp = await Category.create({
-      name, description, img,
+      name, description
     });
     return res.status(200).json({
       status: "200",
@@ -52,7 +52,7 @@ const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      name, description, img,
+      name, description,
     } = req.body;
     const categoryExists = await Category.findOne({ _id: id }).select("id");
     if (!categoryExists) {
@@ -61,7 +61,7 @@ const updateCategory = async (req, res) => {
       await Category.findByIdAndUpdate(
         { _id: id },
         {
-          name, description, img,
+          name, description
         }
       );
     }

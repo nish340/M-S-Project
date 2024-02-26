@@ -8,6 +8,6 @@ module.exports = function Route(app) {
     // app.delete("/api/users/deleteById", userController.deleteById)
     // app.get("/api/users/findById", userController.findById)
     // app.get("/api/users/findAll", userController.findAll)
-    app.post("/users/forgot-password", userController.forgotPassword)
+    // app.post("/users/forgot-password", userController.forgotPassword)
     // app.post("/api/users/reset-password", userController.reset_password)
 }
