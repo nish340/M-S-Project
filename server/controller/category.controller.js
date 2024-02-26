@@ -1,6 +1,8 @@
 const Category = require('../models/category.model');
-// Create a new category
 
+
+
+// Create a new category
 const createCategory = async (req, res) => {
   try {
     const {
@@ -10,10 +12,6 @@ const createCategory = async (req, res) => {
     if (categoryExists) {
       return res.status(400).json({ status: "400", message: "Category Already Exists" });
     }
-    // const sequenceExists = await Category.findOne({ sequence: sequence });
-    // if (sequenceExists) {
-    //   return res.status(400).json({ status: "400", message: "Sequence Already Exists" });
-    // }
     const resp = await Category.create({
       name, description, img,
     });
@@ -33,7 +31,6 @@ const getAllCategory = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
-
     const skip = (page - 1) * limit;
 
     const result = await Category.find().skip(skip).limit(limit);
@@ -41,7 +38,7 @@ const getAllCategory = async (req, res) => {
     return res.status(200).json({
       status: "200",
       message: "Get All Category Successfully",
-      response: result || [],
+      res: result || [],
       totalCount: totalCount,
     });
   } catch (error) {
@@ -55,9 +52,7 @@ const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      name,
-      description,
-      img,
+      name, description, img,
     } = req.body;
     const categoryExists = await Category.findOne({ _id: id }).select("id");
     if (!categoryExists) {
@@ -66,9 +61,7 @@ const updateCategory = async (req, res) => {
       await Category.findByIdAndUpdate(
         { _id: id },
         {
-          name,
-          description,
-          img,
+          name, description, img,
         }
       );
     }
@@ -77,7 +70,7 @@ const updateCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
-
+// deleteAPI
 const deleteCategory = async (req, res) => {
   try {
     const { id: categoryId } = req.params;
@@ -92,7 +85,6 @@ const deleteCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
-
 
 
 module.exports = {

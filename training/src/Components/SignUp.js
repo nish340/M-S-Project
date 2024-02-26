@@ -35,7 +35,7 @@ const SignUp = () => {
 
   const submitForm = async (data) => {
     try{
-    const response = await axios.post("http://localhost:5001/api/users/signUp", data, { withCredentials: true });
+    const response = await axios.post("http://localhost:5000/api/users/signUp", data, { withCredentials: true });
     // console.log(response.data);
     if (response.status === 200) {
       navigate ('/')
