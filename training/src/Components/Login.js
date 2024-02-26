@@ -35,7 +35,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       
-      const response = await axios.post("http://localhost:5002/api/users/logIn", data, { withCredentials: true });
+      const response = await axios.post("http://localhost:5000/api/users/logIn", data, { withCredentials: true });
       
       if (response.status === 200) {
       

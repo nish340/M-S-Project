@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const { INTEGER } = require("sequelize");
 const { Schema } = mongoose;
 
 const userModel = new Schema(
@@ -22,11 +21,6 @@ const userModel = new Schema(
             enum: ['admin','user'], 
             default: 'user' 
                   }
-        // token: {
-        //     type: String,
-        //     default: ''
-        // },
-        // designation: String
     },
     { versionKey: false, timestamps: true }
 );
