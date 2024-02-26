@@ -1,10 +1,13 @@
 import React from 'react'
+import Category from './category'
 
 const Home = () => {
   return (
     <>
-    <h1>This page after login...!!</h1>
-    <h2>Happy Coding...!!</h2>
+    <div>
+      <Category/>
+    </div>
+    
     </>
   )
 }
