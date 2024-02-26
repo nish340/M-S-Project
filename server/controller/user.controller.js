@@ -2,11 +2,9 @@ const User = require("../models/user.model");
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { createSecretKey } = require("crypto");
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const user = require("../models/user.model");
-
+// const { createSecretKey } = require("crypto");
+// const nodemailer = require('nodemailer');
+// const crypto = require('crypto');
 
 // signUpAPI
 const saltRounds = 10;
@@ -64,46 +62,46 @@ const logIn = async (req, res) => {
 
 
 // forgotPasswordAPI
-const forgotPassword = async (req, res) => {
-  try {
-    const { email } = req.body;
-    const user = await User.findOne({ email: email });
-    if (!user) {
-      return res.send({ status: "User not existed" });
-    }
-    const token = jwt.sign({ id: user._id }, "jwt_secret_key", { expiresIn: "1h" });
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'shubhamrwt789@gmail.com',
-        pass: 'your password'
-      }
-    });
-    const mailOptions = {
-      from: 'shubhamrwt789@gmail.com',
-      to: user.email, 
-      subject: 'Reset Password Link',
-      text: `http://localhost:5000/reset_password/${user._id}/${token}`
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        return res.status(500).send({ status: "Error sending email" });
-      } else {
-        return res.send({ status: "Success" });
-      }
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send({ status: "Internal server error" });
-  }
-};
+// const forgotPassword = async (req, res) => {
+//   try {
+//     const { email } = req.body;
+//     const user = await User.findOne({ email: email });
+//     if (!user) {
+//       return res.send({ status: "User not existed" });
+//     }
+//     const token = jwt.sign({ id: user._id }, "jwt_secret_key", { expiresIn: "1h" });
+//     const transporter = nodemailer.createTransport({
+//       service: 'gmail',
+//       auth: {
+//         user: 'shubhamrwt789@gmail.com',
+//         pass: 'your password'
+//       }
+//     });
+//     const mailOptions = {
+//       from: 'shubhamrwt789@gmail.com',
+//       to: user.email, 
+//       subject: 'Reset Password Link',
+//       text: `http://localhost:5000/reset_password/${user._id}/${token}`
+//     };
+//     transporter.sendMail(mailOptions, function (error, info) {
+//       if (error) {
+//         console.log(error);
+//         return res.status(500).send({ status: "Error sending email" });
+//       } else {
+//         return res.send({ status: "Success" });
+//       }
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).send({ status: "Internal server error" });
+//   }
+// };
 
 
 
 
 module.exports = {
   signUp,
-  forgotPassword,
+  // forgotPassword,
   logIn
 };

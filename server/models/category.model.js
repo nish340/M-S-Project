@@ -10,10 +10,10 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  img: {
-    type: String,
-    required: true
-  },  
+  // img: {
+  //   type: String,
+  //   required: true
+  // },  
   // sequence: {
   //   type: Number,
   //   default: null
