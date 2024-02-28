@@ -14,10 +14,6 @@ const categorySchema = new mongoose.Schema({
   //   type: String,
   //   required: true
   // },  
-  // sequence: {
-  //   type: Number,
-  //   default: null
-  // }
 }, { timestamps: true });
 
 const Category = mongoose.model('Category', categorySchema);

@@ -1,13 +1,25 @@
 const Category = require('../models/category.model');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads');
+  },
+  filename: function(req, file, cb){
+    cb(null, Date.now() + file.originalname);
+  }
+
+});
+const upload = multer ({storage:storage});
+
 
 // Create a new category
 const createCategory = async (req, res) => {
-  console.log("object===================================")
+  // console.log("object===================================")
   try {
     const {
       name, description
     } = req.body;
-    console.log(req.body,"createCategory")
+    // console.log(req.body,"createCategory") 
     const categoryExists = await Category.findOne({ name: name });
     if (categoryExists) {
       return res.status(400).json({ status: "400", message: "Category Already Exists" });
@@ -24,6 +36,7 @@ const createCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
+
 
 
 // Get all categories
@@ -51,9 +64,7 @@ const getAllCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const {
-      name, description,
-    } = req.body;
+    const { name, description } = req.body;
     const categoryExists = await Category.findOne({ _id: id }).select("id");
     if (!categoryExists) {
       return res.status(404).json({ status: "404", message: "Category not found" });
@@ -85,6 +96,7 @@ const deleteCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
+
 
 
 module.exports = {

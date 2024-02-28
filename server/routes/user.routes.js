@@ -1,5 +1,6 @@
 const userController = require("../controller/user.controller")
 
+const { verifyAdmin } = require('../Middleware/jwt.auth');
 
 module.exports = function Route(app) {
     app.post("/api/users/logIn", userController.logIn);
