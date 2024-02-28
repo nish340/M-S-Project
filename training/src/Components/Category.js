@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Button, ListGroup, Modal } from "react-bootstrap";
+import {Card, Container, Row, Col, Form, Button, ListGroup, Modal } from "react-bootstrap";
 import axios from "axios";
-
+// require("dotenv").config();
+// const host = process.env.HOST
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState({
@@ -73,67 +74,42 @@ const Category = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container className="mt-5 text-center">
       <Row>
         <Col>
-          <h1>Category Management</h1>
+          <h1 className="fw-bolder">Category Management</h1>
           <Button variant="primary" onClick={() => setShowModal(true)}>
             Add Category
           </Button>
         </Col>
-        <Col>
-          <h2>Categories</h2>
-          <ListGroup>
-            {categories.length > 0 ? (
-              categories.map((category) => (
-                <ListGroup.Item key={category._id}>
-                  <strong>{category.name}</strong>
-                  <p>{category.description}</p>
-                  <Button
-                    variant="info"
-                    onClick={() => handleEditCategory(category)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="danger"
-                    className="ms-2"
-                    onClick={() => handleDeleteCategory(category._id)}
-                  >
-                    Delete
-                  </Button>
-                </ListGroup.Item>
-              ))
-            ) : (
-              <ListGroup.Item>No categories found</ListGroup.Item>
-            )}
-          </ListGroup>
-        </Col>
       </Row>
 
-      {/* {/ Modal for adding/editing categories /} */}
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>{editingCategory ? "Edit Category" : "Add Category"}</Modal.Title>
+      
+      <Modal show={showModal} onHide={handleCloseModal} className="mt-5  ">
+        <Modal.Header closeButton className="text-center text-white bg-dark">
+          <Modal.Title className="text-center fs-5 fw-bold text-white ">{editingCategory ? "Edit Category" : "Add Category"}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="bg-dark text-white">
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
+              <Form.Label className="text-size text-white">Name <b>:</b></Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter category name"
                 name="name"
+                className="py-1 text-size border border-white bg-dark text-white "
+
                 value={newCategory.name}
                 onChange={handleInputChange}
               />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Description</Form.Label>
+              <Form.Label className="text-size text-white">Description <b>:</b></Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
+                className="text-size text-white border border-white bg-dark"
                 placeholder="Enter category description"
                 name="description"
                 value={newCategory.description}
@@ -142,11 +118,11 @@ const Category = () => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+        <Modal.Footer className="d-flex justify-content-between bg-dark">
+          <Button className="py-1 text-size" variant="secondary" onClick={handleCloseModal}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={editingCategory ? handleUpdateCategory : handleAddCategory}>
+          <Button className="py-1 text-size" variant="primary" onClick={editingCategory ? handleUpdateCategory : handleAddCategory}>
             {editingCategory ? 'Update Category' : 'Add Category'}
           </Button>
         </Modal.Footer>

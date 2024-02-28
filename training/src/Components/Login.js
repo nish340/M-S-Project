@@ -9,8 +9,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { Eye, EyeSlash } from "react-bootstrap-icons";
 import DownPage from "./DownPage";
-
-const Login = () => {
+// require("dotenv").config();
+// const port = process.env.PORT;
+// const host = process.env.HOST;
+const Login = ({ }) => {
   const {
     control,
     handleSubmit,
@@ -32,19 +34,27 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+
   const onSubmit = async (data) => {
     try {
-      
-      const response = await axios.post("http://localhost:5000/api/users/logIn", data, { withCredentials: true });
-      
+      const response = await axios.post(
+        // `${host}/api/users/logIn`,
+        "http://localhost:5000/api/users/logIn",
+        data,
+        { withCredentials: true }
+      );
+
+      console.log(response.status);
+
       if (response.status === 200) {
-      
-        navigate('/home');
+
+        navigate("/home");
+        alert("Success!");
+        setInputData("")
+        reset();
       }
-      
-      reset();
     } catch (error) {
-      console.error("Error:", error);
+      alert("invalid username and password");
     }
   };
 
@@ -52,9 +62,9 @@ const Login = () => {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
   return (
     <>
@@ -67,13 +77,13 @@ const Login = () => {
               className="bg-white rounded"
             >
               <div className="header_main d-flex justify-content-center text-white rounded-top  p-3">
-                <h1 className=" h-25 py-4 fw-bold">Endorphin</h1>
+                <h1 className=" py-4  fw-bolder">Endorphinn</h1>
               </div>
               <div className="text-center mt-5">
-                <p className="fw-bolder fs-5 mb-0"> Log In </p>
+                <p className="fw-bolder fs-5 mb-0"> Sign In </p>
                 <p className="paragraph mt-1">
                   Enter your Username and Password to <br />
-                  Access Endorphin Panel.
+                  access Endorphin panel.
                 </p>
               </div>
               <div>
@@ -110,7 +120,7 @@ const Login = () => {
                     <div className="d-flex justify-content-between">
                       <Form.Label>Password</Form.Label>
                       <Link to="/forget" className="forget">
-                        Forgot your Password ?
+                        Forgot your Password?
                       </Link>
                     </div>
                     <Controller
@@ -122,7 +132,9 @@ const Login = () => {
                       rules={{
                         required: "Password is required",
                         pattern: {
-                          value: /^/,
+                          value:
+                            /^/,
+
                           message: "Password must meet certain criteria.",
                         },
                       }}
@@ -161,12 +173,12 @@ const Login = () => {
             </Form>
             <div className="text-center mt-4">
               <p className="paragraph">
-                Don't have an account ?
-                <span>
+                Don't have an account?
+                {/* <span>
                   <Link to="/signUp" className="Sign_link ms-1">
-                    Sign Up
+                    SignUp
                   </Link>
-                </span>
+                </span> */}
               </p>
               <DownPage />
             </div>
@@ -176,6 +188,5 @@ const Login = () => {
     </>
   );
 };
-
 
 export default Login;
