@@ -10,7 +10,7 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: String,
+  // description: String,
   status: {
     type: Boolean,
     default: true

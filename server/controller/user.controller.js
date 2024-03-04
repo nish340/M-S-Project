@@ -32,7 +32,7 @@ const signUp = async (req, res) => {
       password: hashedPassword
     })
     const token = jwt.sign({ email:result.email,id:result._id}, SECRETKEY, {
-      expiresIn: "1h",
+      expiresIn: "500ms",
     });
     return res.status(200).json({ User: result,token:token, status: 200 });
   } catch (error) {
@@ -61,7 +61,7 @@ const logIn = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials", status: 401 });
     }
     const token = jwt.sign({ userId: user._id }, SECRETKEY, {
-      expiresIn: "1h",
+      expiresIn: "500ms",
     });
     return res.status(200).json({ message: "Login successfull", user: {_id: user._id, name: user.name, phone:user.phone, role: user.role }, token, status: 200 });
   } catch (error) {
