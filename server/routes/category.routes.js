@@ -9,10 +9,7 @@ module.exports = function route(app) {
     app.get('/api/getallCategory',verifyAdmin, categoryController.getAllCategory);
     app.put('/api/updateCategory/:id',verifyAdmin, categoryController.updateCategory);
     app.delete('/api/deleteCategory/:id', verifyAdmin,categoryController.deleteCategory);
-    // app.get('/api/getCategory', categoryController.getCategoryById);
-
-
-
+    app.get('/api/searchCategory/:id',verifyAdmin, categoryController.searchCategory);
 
     // module.exports = router;
 }

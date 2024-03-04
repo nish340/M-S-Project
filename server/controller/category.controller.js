@@ -1,3 +1,4 @@
+const { isRegExp } = require('util/types');
 const Category = require('../models/category.model');
 // const multer = require('multer');
 // const storage = multer.diskStorage({
@@ -35,7 +36,7 @@ const createCategory = async (req, res) => {
       response: resp,
     });
   } catch (error) {
-    return res.status(500).json({ status: "500", message: error.message });
+    return res.status(500).json({ status: "500", message: error.message});
   }
 };
 
@@ -45,15 +46,23 @@ const createCategory = async (req, res) => {
 const getAllCategory = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 20;
+    const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const result = await Category.find()
-    .skip(skip)
-    .limit(limit);
-    const totalCount = await Category.countDocuments();
+    const query = {};
+    if (req.query.name) {
+      query.name = { $regex:RegExp(req.query.name) }; 
+    }else{
+      // console.log("hit=======");
+    }
+    if (req.query.status) {
+      query.status = req.query.status;
+    }
+    const result = await Category.find(query)
+      .skip(skip)
+      .limit(limit);
+    const totalCount = await Category.countDocuments(query);
     return res.status(200).json({
-      // status: "200",
       message: "Get All Category Successfully",
       res: result || [],
       totalCount: totalCount,
@@ -62,6 +71,26 @@ const getAllCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: "Get All Category Failed" });
   }
 };
+
+
+// SearchApi
+const searchCategory = async (req, res) => {
+  try {
+    const { id: categoryId } = req.params;
+    const existingCategory = await Category.findById(categoryId);
+    
+    if (existingCategory) {
+      const data = await Category.findById(categoryId);
+      res.send(data);
+      console.log(categoryId,"Hit=======================");
+    } else {
+      return res.status(404).json({ status: "404", message: "Category not found" });
+    }
+  } catch (err) {
+    return res.status(500).json({ status: 500, message: err.message });
+  }
+};
+
 
 
 
@@ -89,6 +118,9 @@ const updateCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
+
+
+
 // deleteAPI
 const deleteCategory = async (req, res) => {
   try {
@@ -109,9 +141,10 @@ const deleteCategory = async (req, res) => {
 
 
 module.exports = {
-  createCategory,
-  updateCategory,
-  getAllCategory,
-  deleteCategory,
+  createCategory,  //add 
+  updateCategory,  //update category
+  getAllCategory,  //get all category
+  deleteCategory,  //delete category
+  searchCategory,  //search category
 };
 
