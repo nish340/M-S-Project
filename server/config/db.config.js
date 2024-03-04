@@ -1,7 +1,5 @@
+// const MONGO_URI
 const mongoose = require('mongoose')
-// const { Sequelize } = require('sequelize');
-
-// require('dotenv').config();
 const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true

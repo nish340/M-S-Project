@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { Button, Card, Col, Container, ListGroup, Modal, Row, Form } from 'react-bootstrap';
 // require("dotenv").config();
+// const BASE_URL = process.env.BASE_URL;
 // const port = process.env.PORT
 // const host = process.env.HOST
 
@@ -12,6 +13,8 @@ const Categories = () => {
     name: '',
     description: '',
   });
+  
+
   const [editingCategory, setEditingCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -19,18 +22,21 @@ const Categories = () => {
     fetchData();
   }, []);
 
+
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/getAllCategory");
+      const response = await axios.get(`http://localhost:5000/api/getAllCategory`);
       setCategories(response.data.res);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   };
 
+
   const handleInputChange = (e) => {
     setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
   };
+
 
   const handleAddCategory = async () => {
     try {
@@ -51,6 +57,7 @@ const Categories = () => {
     setShowModal(true);
   };
 
+
   const handleUpdateCategory = async () => {
     try {
       await axios.put(`http://localhost:5000/api/updateCategory/${editingCategory._id}`, newCategory);
@@ -63,6 +70,7 @@ const Categories = () => {
     }
   };
 
+
   const handleDeleteCategory = async (categoryId) => {
     try {
       await axios.delete(`http://localhost:5000/api/deleteCategory/${categoryId}`);
@@ -72,12 +80,12 @@ const Categories = () => {
     }
   };
 
+
   const handleCloseModal = () => {
     setShowModal(false);
     setEditingCategory(null);
     setNewCategory({ name: '', description: '' });
   };
-
   return (
     <>
       <Container className=''>
@@ -114,7 +122,6 @@ const Categories = () => {
           </Col>
         </Row>
       </Container>
-
       <Modal show={showModal} onHide={handleCloseModal} className='mt-5  '>
       <Modal.Header closeButton className="text-center text-white bg-dark">
       <Modal.Title className="text-center fs-5 fw-bold text-white ">{editingCategory ? "Edit Category" : "Add Category"}</Modal.Title>
@@ -133,7 +140,6 @@ const Categories = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-
             <Form.Group className="mb-3">
               <Form.Label className="text-size text-white">Description <b>:</b></Form.Label>
               <Form.Control

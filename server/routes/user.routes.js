@@ -1,9 +1,9 @@
 const userController = require("../controller/user.controller")
 
-const { verifyAdmin } = require('../Middleware/jwt.auth');
+// const { verifyAdmin } = require('../Middleware/jwt.auth');
 
 module.exports = function Route(app) {
-    app.post("/api/users/logIn", userController.logIn);
+    app.post("/api/users/logIn",  userController.logIn);
     app.post("/api/users/signUp", userController.signUp);
     // app.put("/api/users/edit", userController.update)
     // app.delete("/api/users/deleteById", userController.deleteById)
