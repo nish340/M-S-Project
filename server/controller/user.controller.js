@@ -2,11 +2,12 @@ const User = require("../models/user.model");
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SECRETKEY = "my_secret_key";
+const SECRETKEY = process.env.SECRET_ACCESS_TOKEN;
 const auth = require('../Middleware/jwt.auth');
 // const nodemailer = require('nodemailer');
 // const crypto = require('crypto');
  
+
 
 // signUpAPI
 const saltRounds = 10;
@@ -23,7 +24,7 @@ const signUp = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    await new User({ name, email, phone, password: hashedPassword, role }).save();
+    await new User({ name, email, phone, password: hashedPassword, role });
     const result = await User.create({
       name:name,
       email:email,
@@ -31,14 +32,14 @@ const signUp = async (req, res) => {
       password: hashedPassword
     })
     const token = jwt.sign({ email:result.email,id:result._id}, SECRETKEY, {
-      expiresIn: "1h",
+      expiresIn: "500ms",
     });
     return res.status(200).json({ User: result,token:token, status: 200 });
   } catch (error) {
     return res.status(500).json({ message: error.message, status: 500 });
   }
 };
-module.exports = signUp;
+// module.exports = signUp;
 
 
 
@@ -60,7 +61,7 @@ const logIn = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials", status: 401 });
     }
     const token = jwt.sign({ userId: user._id }, SECRETKEY, {
-      expiresIn: "1h",
+      expiresIn: "500ms",
     });
     return res.status(200).json({ message: "Login successfull", user: {_id: user._id, name: user.name, phone:user.phone, role: user.role }, token, status: 200 });
   } catch (error) {
@@ -91,7 +92,7 @@ const logIn = async (req, res) => {
 //       from: 'shubhamrwt789@gmail.com',
 //       to: user.email, 
 //       subject: 'Reset Password Link',
-//       text: `http://localhost:5000/reset_password/${user._id}/${token}`
+//       text: `BASE_URL/reset_password/${user._id}/${token}`
 //     };
 //     transporter.sendMail(mailOptions, function (error, info) {
 //       if (error) {
@@ -111,7 +112,7 @@ const logIn = async (req, res) => {
 
 
 module.exports = {
-  signUp,
-  // forgotPassword,
-  logIn
+signUp,
+logIn,
+  // forgotPassword
 };

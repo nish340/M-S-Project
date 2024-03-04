@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {Card, Container, Row, Col, Form, Button, ListGroup, Modal } from "react-bootstrap";
+import { Card, Container, Row, Col, Form, Button, ListGroup, Modal } from "react-bootstrap";
 import axios from "axios";
 // require("dotenv").config();
-// const host = process.env.HOST
+const BASE_URL = process.env.BASE_URL;
 const Category = () => {
   const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState({
     name: "",
-    description: ""
+    description: "",
   });
   const [editingCategory, setEditingCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -25,13 +25,15 @@ const Category = () => {
     }
   };
 
+
   const handleInputChange = (e) => {
     setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
   };
 
+
   const handleAddCategory = async () => {
     try {
-      await axios.post("http://localhost:5000/api/createCategory", newCategory);
+      await axios.post(`http://localhost:5000/api/createCategory`, newCategory);
       fetchData();
       setNewCategory({ name: "", description: "" });
       setShowModal(false);
@@ -40,11 +42,13 @@ const Category = () => {
     }
   };
 
+
   const handleEditCategory = (category) => {
     setEditingCategory(category);
     setNewCategory({ ...category });
     setShowModal(true);
   };
+
 
   const handleUpdateCategory = async () => {
     try {
@@ -58,6 +62,7 @@ const Category = () => {
     }
   };
 
+
   const handleDeleteCategory = async (categoryId) => {
     try {
       await axios.delete(`http://localhost:5000/api/deleteCategory/${categoryId}`);
@@ -67,11 +72,13 @@ const Category = () => {
     }
   };
 
+
   const handleCloseModal = () => {
     setShowModal(false);
     setEditingCategory(null);
     setNewCategory({ name: "", description: "" });
   };
+
 
   return (
     <Container className="mt-5 text-center">
@@ -83,8 +90,6 @@ const Category = () => {
           </Button>
         </Col>
       </Row>
-
-      
       <Modal show={showModal} onHide={handleCloseModal} className="mt-5  ">
         <Modal.Header closeButton className="text-center text-white bg-dark">
           <Modal.Title className="text-center fs-5 fw-bold text-white ">{editingCategory ? "Edit Category" : "Add Category"}</Modal.Title>
@@ -103,7 +108,6 @@ const Category = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
-
             <Form.Group className="mb-3">
               <Form.Label className="text-size text-white">Description <b>:</b></Form.Label>
               <Form.Control

@@ -10,8 +10,7 @@ import axios from "axios";
 // import { Eye, EyeSlash } from "react-bootstrap-icons";
 import DownPage from "./DownPage";
 // require("dotenv").config();
-// const port = process.env.PORT;
-// const host = process.env.HOST;
+// const BASE_URL = process.env;
 const Login = ({ }) => {
   const {
     control,
@@ -38,14 +37,12 @@ const Login = ({ }) => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        // `${host}/api/users/logIn`,
+        // `http://localhost:5000 /api/users/logIn`,
         "http://localhost:5000/api/users/logIn",
         data,
         { withCredentials: true }
       );
-
       console.log(response.status);
-
       if (response.status === 200) {
 
         navigate("/home");

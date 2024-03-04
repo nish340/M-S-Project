@@ -1,25 +1,27 @@
 const Category = require('../models/category.model');
-const multer = require('multer');
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './uploads');
-  },
-  filename: function(req, file, cb){
-    cb(null, Date.now() + file.originalname);
-  }
+// const multer = require('multer');
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, './uploads');
+//   },
+//   filename: function(req, file, cb){
+//     cb(null, Date.now() + file.originalname);
+//   }
 
-});
-const upload = multer ({storage:storage});
+// }
+// const upload = multer ({storage:storage});
 
+// app.post ("./upload", upload.single('profileImage'), (req, res)=>{
+//   console.log(req.file);
+//   res.send(req.file);
+// });
 
 // Create a new category
 const createCategory = async (req, res) => {
-  // console.log("object===================================")
   try {
     const {
       name, description
     } = req.body;
-    // console.log(req.body,"createCategory") 
     const categoryExists = await Category.findOne({ name: name });
     if (categoryExists) {
       return res.status(400).json({ status: "400", message: "Category Already Exists" });
@@ -46,10 +48,12 @@ const getAllCategory = async (req, res) => {
     const limit = parseInt(req.query.limit) || 20;
     const skip = (page - 1) * limit;
 
-    const result = await Category.find().skip(skip).limit(limit);
+    const result = await Category.find()
+    .skip(skip)
+    .limit(limit);
     const totalCount = await Category.countDocuments();
     return res.status(200).json({
-      status: "200",
+      // status: "200",
       message: "Get All Category Successfully",
       res: result || [],
       totalCount: totalCount,
@@ -60,11 +64,12 @@ const getAllCategory = async (req, res) => {
 };
 
 
+
 // Update a category
 const updateCategory = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, description } = req.body;
+    const {id} = req.params;
+    const { name, description,status } = req.body;
     const categoryExists = await Category.findOne({ _id: id }).select("id");
     if (!categoryExists) {
       return res.status(404).json({ status: "404", message: "Category not found" });
@@ -72,10 +77,13 @@ const updateCategory = async (req, res) => {
       await Category.findByIdAndUpdate(
         { _id: id },
         {
-          name, description
+          name, description,status
+        },
+        {
+          new:true
         }
       );
-    }
+    };
     return res.status(200).json({ status: "200", message: "Category updated successfully" });
   } catch (error) {
     return res.status(500).json({ status: "500", message: error.message });
@@ -96,6 +104,7 @@ const deleteCategory = async (req, res) => {
     return res.status(500).json({ status: "500", message: error.message });
   }
 };
+
 
 
 
