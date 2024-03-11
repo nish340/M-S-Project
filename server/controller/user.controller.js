@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SECRETKEY = process.env.SECRET_ACCESS_TOKEN;
+const SECRETKEY =;
 const auth = require('../Middleware/jwt.auth');
 // const nodemailer = require('nodemailer');
 // const crypto = require('crypto');
